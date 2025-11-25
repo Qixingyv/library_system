@@ -1,14 +1,19 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-class User(models.Model):
+
+class User(AbstractUser):
+
     username = models.CharField(
-        max_length=150,
+        max_length=150, 
+        verbose_name='用户名',
         unique=True,
-        verbose_name='登录用户名'
     )
-    password = models.CharField(
-        max_length=128,
-        verbose_name='加密密码'
+
+    name = models.CharField(
+        max_length=150,
+        verbose_name='真实姓名',
+        null=True,
     )
     ROLE_CHOICES = (
         (0, '管理员'),
@@ -19,28 +24,28 @@ class User(models.Model):
         choices=ROLE_CHOICES,
         verbose_name='角色（0-管理员/1-图书管理员/2-读者）'
     )
-    student_id = models.CharField(
+    user_id = models.CharField(
         max_length=50,
         unique=True,
         null=True,
         blank=True,
         verbose_name='学号/教师编号（读者必填）'
     )
-    name = models.CharField(
-        max_length=100,
-        verbose_name='真实姓名'
-    )
+
     phone = models.CharField(
         max_length=20,
         null=True,
         blank=True,
         verbose_name='手机号'
     )
+
     email = models.EmailField(
         max_length=254,
-        unique=True,
-        verbose_name='通知邮箱'
+        null=True,
+        blank=True,
+        verbose_name='电子邮箱'
     )
+
     GENDER_CHOICES = (
         (0, '女'),
         (1, '男'),
@@ -60,14 +65,6 @@ class User(models.Model):
         null=True,
         blank=True,
         verbose_name='爱好（逗号分隔）'
-    )
-    is_approved = models.BooleanField(
-        default=False,
-        verbose_name='审核状态（0-未审核/1-已通过）'
-    )
-    date_joined = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name='注册时间'
     )
 
     class Meta:

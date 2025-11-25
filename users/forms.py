@@ -6,7 +6,7 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'password', 'student_id', 'name', 'email', 'phone', 'gender', 'age', 'hobby']
+        fields = ['username', 'password', 'user_id', 'name', 'email', 'phone', 'gender', 'age', 'hobby']
         widgets = {
             'hobby': forms.Textarea(attrs={'rows': 2}),
         }
